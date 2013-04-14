@@ -21,8 +21,10 @@
  */
 package com.hartveld.commons.test.swing;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static javax.swing.SwingUtilities.isEventDispatchThread;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -98,9 +100,9 @@ public abstract class AbstractSwingFrameTest {
 	 *                                  supplied type, an exception is thrown.
 	 */
 	protected <T extends Component> T lookup(final Class<T> clazz) throws NoSuchComponentException {
-		LOG.trace("Looking up component of type: {}", clazz.getName());
+		LOG.trace("Looking up anonymous component of type {}", clazz.getName());
 
-		final T component = lookup(this.frame.getContentPane(), clazz);
+		final T component = lookup(this.frame.getContentPane(), null, clazz);
 
 		if (component == null) {
 			throw new NoSuchComponentException(this.frame, clazz);
@@ -110,14 +112,49 @@ public abstract class AbstractSwingFrameTest {
 		}
 	}
 
-	private static <T> T lookup(final Container container, final Class<T> clazz) {
+	/**
+	 * Lookup a component of given type and with a given name in the content
+	 * pane of the main frame.
+	 * <p/>
+	 * The first correctly-named component encountered in the content pane of
+	 * the main frame is returned.
+	 * <p/>
+	 * This method uses {@link JFrame#getContentPane()} and
+	 * {@link Container#getComponents()} to recurse over the component tree.
+	 *
+	 * @param name  The name of the component to search for. Must be non-empty.
+	 * @param clazz The type of the component as {@link Class} instance.
+	 *
+	 * @return If found, the component is returned.
+	 *
+	 * @throws NoSuchComponentException If no component can be found of the
+	 *                                  supplied type, an exception is thrown.
+	 */
+	protected final <T extends Component> T lookup(final String name, final Class<T> clazz) throws NoSuchComponentException {
+		LOG.trace("Looking up component named {} of type {}", name, clazz.getName());
+
+		checkArgument(isNotEmpty(name), "name must be non-empty");
+
+		final T component = lookup(this.frame.getContentPane(), name, clazz);
+
+		if (component == null) {
+			throw new NoSuchComponentException(this.frame, name, clazz);
+		} else {
+			LOG.trace("Found component: {}", component.getName());
+			return component;
+		}
+	}
+
+	private static <T> T lookup(final Container container, final String name, final Class<T> clazz) {
 		LOG.trace("Looking up component of type {} in container {} ...", clazz.getName(), container.getName());
 
 		for (final Component c : container.getComponents()) {
 			if (clazz.isAssignableFrom(c.getClass())) {
-				return (T)c;
+				if (name == null || name.equals(c.getName())) {
+					return (T)c;
+				}
 			} else if (c instanceof Container) {
-				final T nested = lookup((Container) c, clazz);
+				final T nested = lookup((Container) c, name, clazz);
 				if (nested != null) {
 					return nested;
 				}

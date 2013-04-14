@@ -31,13 +31,36 @@ public class NoSuchComponentException extends RuntimeException {
 	public final Class<?> clazz;
 
 	public NoSuchComponentException(final Container container, final Class<?> clazz) {
-		super("Container " + container.getName() + " does not contain component of type " + clazz.getName());
+		this(container, null, clazz);
+	}
+
+	public NoSuchComponentException(final Container container, final String name, final Class<?> clazz) {
+		super(message(container, name, clazz));
 
 		checkNotNull(container, "container");
 		checkNotNull(clazz, "clazz");
 
 		this.container = container;
 		this.clazz = clazz;
+	}
+
+	private static String message(final Container container, final String name, final Class<?> clazz) {
+		checkNotNull(container, "container");
+		checkNotNull(clazz, "clazz");
+
+		if (name == null || name.isEmpty()) {
+			return message2(container, clazz);
+		} else {
+			return message3(container, name, clazz);
+		}
+	}
+
+	private static String message2(final Container container, final Class<?> clazz) {
+		return "Container " + container.getName() + " does not contain component of type " + clazz.getName();
+	}
+
+	private static String message3(final Container container, final String name, final Class<?> clazz) {
+		return "Container " + container.getName() + " does not contain component named " + name + " of type " + clazz.getName();
 	}
 
 }

@@ -28,12 +28,8 @@ import static org.junit.Assert.assertThat;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OtherTest extends AbstractSwingFrameTest {
-
-	private static final Logger LOG = LoggerFactory.getLogger(OtherTest.class);
 
 	private static final String LABEL1 = "label1";
 	private static final String LABEL2 = "label2";
@@ -68,18 +64,18 @@ public class OtherTest extends AbstractSwingFrameTest {
 		assertThat(lookedUp, is(sameInstance(label1)));
 	}
 
-//	@Test
-//	public void testLookupOfFirstNamedComponent() {
-//		final JLabel lookedUp = lookup(JLabel.class, LABEL1);
-//
-//		assertThat(lookedUp, is(sameInstance(label1)));
-//	}
+	@Test
+	public void testLookupOfFirstNamedComponent() {
+		final JLabel lookedUp = lookup(LABEL1, JLabel.class);
 
-//	@Test
-//	public void testLookupOfSecondNamedComponent() {
-//		final JLabel lookedUp = lookup(JLabel.class, LABEL2);
-//
-//		assertThat(lookedUp, is(sameInstance(label2)));
-//	}
+		assertThat(lookedUp, is(sameInstance(label1)));
+	}
+
+	@Test
+	public void testLookupOfSecondNamedComponent() {
+		final JLabel lookedUp = lookup(LABEL2, JLabel.class);
+
+		assertThat(lookedUp, is(sameInstance(label2)));
+	}
 
 }
