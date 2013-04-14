@@ -132,7 +132,7 @@ public abstract class AbstractSwingFrameTest {
 	 * <p/>
 	 * Closing the frame causes the UI lock to be released.
 	 *
-	 * @see #waitForClosedFrame()
+	 * @see #waitForFrameToClose()
 	 */
 	protected final void closeFrame() {
 		LOG.trace("Closing frame ...");
