@@ -18,4 +18,22 @@
 		<module>swing</module>
 	</modules>
 
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.dep.junit}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>${version.dep.hamcrest}</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+
 </project>
