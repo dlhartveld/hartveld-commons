@@ -48,14 +48,14 @@ public abstract class AbstractSwingFrameTest {
 	private JFrame frame;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		createAndAcquireLock();
 		createAndShowFrame();
 		lookupComponents();
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		if (frame.isVisible()) {
 			closeFrame();
 		}
@@ -69,8 +69,10 @@ public abstract class AbstractSwingFrameTest {
 	 * This method is called on the EDT.
 	 *
 	 * @return A newly created {@link JFrame} for use in the test.
+	 *
+	 * @throws Exception Something went wrong while creating the frame.
 	 */
-	protected abstract JFrame createFrame();
+	protected abstract JFrame createTestableFrame() throws Exception;
 
 	/**
 	 * Lookup all components that are needed by the test.
@@ -232,7 +234,13 @@ public abstract class AbstractSwingFrameTest {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
 				public void run() {
-					frame = createFrame();
+					try {
+						frame = createTestableFrame();
+					} catch (Exception ex) {
+						LOG.error("Failed to create testable frame: {}", ex.getMessage(), ex);
+						throw new RuntimeException(ex.getMessage(), ex);
+					}
+
 					frame.addWindowListener(new WindowAdapter() {
 						@Override
 						public void windowClosing(WindowEvent e) {

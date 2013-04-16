@@ -38,7 +38,7 @@ public class OtherTest extends AbstractSwingFrameTest {
 	private JLabel label2;
 
 	@Override
-	protected JFrame createFrame() {
+	protected JFrame createTestableFrame() {
 		final JFrame frame = new JFrame("Frame");
 		frame.setName("frame");
 
