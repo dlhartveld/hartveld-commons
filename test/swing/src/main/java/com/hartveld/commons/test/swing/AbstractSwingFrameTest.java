@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.hartveld.commons.test.swing;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -67,9 +68,9 @@ public abstract class AbstractSwingFrameTest {
 	 * Create the main {@link JFrame} used during the test.
 	 * <p/>
 	 * This method is called on the EDT.
-	 *
+	 * 
 	 * @return A newly created {@link JFrame} for use in the test.
-	 *
+	 * 
 	 * @throws Exception Something went wrong while creating the frame.
 	 */
 	protected abstract JFrame createTestableFrame() throws Exception;
@@ -92,22 +93,22 @@ public abstract class AbstractSwingFrameTest {
 	 * <p/>
 	 * This method uses {@link JFrame#getContentPane()} and
 	 * {@link Container#getComponents()} to recurse over the component tree.
-	 *
-	 * @param <T>   The type of the component.
+	 * 
+	 * @param <T> The type of the component.
 	 * @param clazz The type of the component as {@link Class} instance.
-	 *
+	 * 
 	 * @return If found, the component is returned.
-	 *
+	 * 
 	 * @throws NoSuchComponentException If no component can be found of the
-	 *                                  supplied type, an exception is thrown.
+	 *             supplied type, an exception is thrown.
 	 */
 	protected <T extends Component> T lookup(final Class<T> clazz) throws NoSuchComponentException {
 		LOG.trace("Looking up anonymous component of type {}", clazz.getName());
 
-		final T component = lookup(this.frame.getContentPane(), null, clazz);
+		final T component = lookup(frame.getContentPane(), null, clazz);
 
 		if (component == null) {
-			throw new NoSuchComponentException(this.frame, clazz);
+			throw new NoSuchComponentException(frame, clazz);
 		} else {
 			LOG.trace("Found component: {}", component.getName());
 			return component;
@@ -123,24 +124,24 @@ public abstract class AbstractSwingFrameTest {
 	 * <p/>
 	 * This method uses {@link JFrame#getContentPane()} and
 	 * {@link Container#getComponents()} to recurse over the component tree.
-	 *
-	 * @param name  The name of the component to search for. Must be non-empty.
+	 * 
+	 * @param name The name of the component to search for. Must be non-empty.
 	 * @param clazz The type of the component as {@link Class} instance.
-	 *
+	 * 
 	 * @return If found, the component is returned.
-	 *
+	 * 
 	 * @throws NoSuchComponentException If no component can be found of the
-	 *                                  supplied type, an exception is thrown.
+	 *             supplied type, an exception is thrown.
 	 */
 	protected final <T extends Component> T lookup(final String name, final Class<T> clazz) throws NoSuchComponentException {
 		LOG.trace("Looking up component named {} of type {}", name, clazz.getName());
 
 		checkArgument(isNotEmpty(name), "name must be non-empty");
 
-		final T component = lookup(this.frame.getContentPane(), name, clazz);
+		final T component = lookup(frame.getContentPane(), name, clazz);
 
 		if (component == null) {
-			throw new NoSuchComponentException(this.frame, name, clazz);
+			throw new NoSuchComponentException(frame, name, clazz);
 		} else {
 			LOG.trace("Found component: {}", component.getName());
 			return component;
@@ -153,7 +154,7 @@ public abstract class AbstractSwingFrameTest {
 		for (final Component c : container.getComponents()) {
 			if (clazz.isAssignableFrom(c.getClass())) {
 				if (name == null || name.equals(c.getName())) {
-					return (T)c;
+					return (T) c;
 				}
 			} else if (c instanceof Container) {
 				final T nested = lookup((Container) c, name, clazz);
@@ -170,7 +171,7 @@ public abstract class AbstractSwingFrameTest {
 	 * Close the main application frame, releasing all resources.
 	 * <p/>
 	 * Closing the frame causes the UI lock to be released.
-	 *
+	 * 
 	 * @see #waitForFrameToClose()
 	 */
 	protected final void closeFrame() {
@@ -180,6 +181,7 @@ public abstract class AbstractSwingFrameTest {
 
 		LOG.trace("Delegating to EDT ...");
 		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
 				LOG.trace("Cleaning up UI resources ...");
@@ -195,7 +197,7 @@ public abstract class AbstractSwingFrameTest {
 
 	/**
 	 * Wait for the UI lock to be released after calling {@link #closeFrame()}.
-	 *
+	 * 
 	 * @see #closeFrame()
 	 */
 	protected final void waitForFrameToClose() {
@@ -212,10 +214,11 @@ public abstract class AbstractSwingFrameTest {
 
 		checkIsNotEDT();
 
-		this.lock = new ReentrantLock();
+		lock = new ReentrantLock();
 
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
+
 				@Override
 				public void run() {
 					LOG.trace("Attempting to acquire lock ...");
@@ -232,18 +235,20 @@ public abstract class AbstractSwingFrameTest {
 	private void createAndShowFrame() {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
+
 				@Override
 				public void run() {
 					try {
 						frame = createTestableFrame();
-					} catch (Exception ex) {
+					} catch (final Exception ex) {
 						LOG.error("Failed to create testable frame: {}", ex.getMessage(), ex);
 						throw new RuntimeException(ex.getMessage(), ex);
 					}
 
 					frame.addWindowListener(new WindowAdapter() {
+
 						@Override
-						public void windowClosing(WindowEvent e) {
+						public void windowClosing(final WindowEvent e) {
 							LOG.trace("Unlocking ...");
 							lock.unlock();
 						}

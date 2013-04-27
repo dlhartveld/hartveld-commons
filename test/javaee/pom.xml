@@ -28,33 +28,24 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.hartveld.commons</groupId>
-		<artifactId>com.hartveld.commons.parent</artifactId>
+		<groupId>com.hartveld.commons.test</groupId>
+		<artifactId>com.hartveld.commons.test.parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.hartveld.commons.test</groupId>
-	<artifactId>com.hartveld.commons.test.parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Hartveld.COM - Commons - Test - Parent project</name>
-
-	<modules>
-		<module>javaee</module>
-		<module>swing</module>
-	</modules>
+	<artifactId>com.hartveld.commons.test.javaee</artifactId>
+	<name>Hartveld.COM - Commons - Test - Java EE</name>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>compile</scope>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>javaee-api</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-library</artifactId>
-			<scope>compile</scope>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>openejb-core</artifactId>
 		</dependency>
 
 	</dependencies>

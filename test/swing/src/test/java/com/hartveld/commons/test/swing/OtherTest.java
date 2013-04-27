@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.hartveld.commons.test.swing;
 
 import static org.hamcrest.Matchers.is;
@@ -55,7 +56,7 @@ public class OtherTest extends AbstractSwingFrameTest {
 	}
 
 	@Override
-	protected void lookupComponents() { }
+	protected void lookupComponents() {}
 
 	@Test
 	public void testLookupOfUnnamedComponent() {

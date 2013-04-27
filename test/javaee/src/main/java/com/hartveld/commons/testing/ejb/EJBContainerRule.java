@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+/*
  * Copyright (c) 2013 David Hartveld
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,43 +18,34 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- -->
+ */
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+package com.hartveld.commons.testing.ejb;
 
-	<modelVersion>4.0.0</modelVersion>
+import static com.google.common.base.Preconditions.checkNotNull;
 
-	<parent>
-		<groupId>com.hartveld.commons</groupId>
-		<artifactId>com.hartveld.commons.parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
-	</parent>
+import org.junit.rules.ExternalResource;
 
-	<groupId>com.hartveld.commons.test</groupId>
-	<artifactId>com.hartveld.commons.test.parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Hartveld.COM - Commons - Test - Parent project</name>
+public class EJBContainerRule extends ExternalResource {
 
-	<modules>
-		<module>javaee</module>
-		<module>swing</module>
-	</modules>
+	private final OpenEjbContainerProperties properties;
 
-	<dependencies>
+	private AppContainer container;
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>compile</scope>
-		</dependency>
+	public EJBContainerRule(final OpenEjbContainerProperties properties) {
+		checkNotNull(properties, "properties");
 
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-library</artifactId>
-			<scope>compile</scope>
-		</dependency>
+		this.properties = properties;
+	}
 
-	</dependencies>
+	@Override
+	protected void before() throws Throwable {
+		container = new AppContainer(properties);
+	}
 
-</project>
+	@Override
+	protected void after() {
+		container.close();
+	}
+
+}

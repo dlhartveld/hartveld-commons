@@ -19,12 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.hartveld.commons.test.swing;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.awt.Container;
 
+@SuppressWarnings("serial")
 public class NoSuchComponentException extends RuntimeException {
 
 	public final Container container;
