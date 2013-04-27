@@ -22,13 +22,42 @@
 
 package com.hartveld.commons.testing.ejb;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 import java.util.Properties;
 import org.apache.openejb.OpenEjbContainer;
 
+/**
+ * Convenience subclass of {@link Properties} that preconfigures itself for use
+ * with OpenEJB.
+ */
 @SuppressWarnings("serial")
 public class OpenEjbContainerProperties extends Properties {
 
+	/**
+	 * Create a new instance configured with the given parameters.
+	 * 
+	 * @param appName The name of the application. Must be non-empty.
+	 * @param dsName The name of the datasource that is to be supplied. Must be
+	 *            non-empty.
+	 * @param dbUrl The URL of the JDBC database connections to use. Must be
+	 *            non-empty.
+	 * @param jdbcDriverClassName The name of the JDBC Driver implementation
+	 *            class to use. Must be non-empty.
+	 * @param dbUsername The username to use when connecting to the database.
+	 *            Must be non-empty.
+	 * @param dbPassword The password to use when connecting to the database.
+	 *            Must be non-empty.
+	 */
 	public OpenEjbContainerProperties(final String appName, final String dsName, final String dbUrl, final String jdbcDriverClassName, final String dbUsername, final String dbPassword) {
+		checkArgument(isNotEmpty(appName), "appName must be non-null and non-empty");
+		checkArgument(isNotEmpty(dsName), "dsName must be non-null and non-empty");
+		checkArgument(isNotEmpty(jdbcDriverClassName), "jdbcDriverClassName must be non-null and non-empty");
+		checkArgument(isNotEmpty(dbUrl), "dbUrl must be non-null and non-empty");
+		checkArgument(isNotEmpty(dbUsername), "dbUsername must be non-null and non-empty");
+		checkArgument(isNotEmpty(dbPassword), "dbPassword must be non-null and non-empty");
+
 		setProperty(OpenEjbContainer.APP_NAME, appName);
 		setProperty(OpenEjbContainer.OPENEJB_EMBEDDED_REMOTABLE, "true");
 

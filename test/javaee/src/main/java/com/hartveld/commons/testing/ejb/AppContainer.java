@@ -24,18 +24,40 @@ package com.hartveld.commons.testing.ejb;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Properties;
 import javax.ejb.embeddable.EJBContainer;
 
+/**
+ * An easily manageable embedded {@link EJBContainer}.
+ */
 public class AppContainer implements AutoCloseable {
 
 	private final EJBContainer container;
 
-	public AppContainer(final OpenEjbContainerProperties properties) {
+	/**
+	 * Create and start a new {@link EJBContainer} which can be stopped by
+	 * calling the {@link #close()} method.
+	 */
+	public AppContainer() {
+		container = EJBContainer.createEJBContainer();
+	}
+
+	/**
+	 * Create and start a new {@link EJBContainer} which can be stopped by
+	 * calling the {@link #close()} method.
+	 * 
+	 * @param properties The {@link Properties} to configure the container. Must
+	 *            be non-<code>null</code>.
+	 */
+	public AppContainer(final Properties properties) {
 		checkNotNull(properties, "properties");
 
 		container = EJBContainer.createEJBContainer(properties);
 	}
 
+	/**
+	 * Close the container, stopping all its services.
+	 */
 	@Override
 	public void close() {
 		container.close();

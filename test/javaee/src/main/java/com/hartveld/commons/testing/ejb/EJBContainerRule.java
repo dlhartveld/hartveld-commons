@@ -24,25 +24,53 @@ package com.hartveld.commons.testing.ejb;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Properties;
+import javax.ejb.embeddable.EJBContainer;
 import org.junit.rules.ExternalResource;
+import org.junit.rules.TestRule;
 
+/**
+ * A JUnit 4 {@link TestRule} implementation that manages an embedded
+ * {@link EJBContainer}.
+ */
 public class EJBContainerRule extends ExternalResource {
 
-	private final OpenEjbContainerProperties properties;
+	private final Properties properties;
 
 	private AppContainer container;
 
-	public EJBContainerRule(final OpenEjbContainerProperties properties) {
+	/**
+	 * Create a new {@link EJBContainerRule} instance with an empty set of
+	 * properties.
+	 */
+	public EJBContainerRule() {
+		this(new Properties());
+	}
+
+	/**
+	 * Create a new {@link EJBContainerRule} instance that will configure the
+	 * {@link EJBContainer} with the given set of {@link Properties}.
+	 * 
+	 * @param properties The {@link Properties} to use when configuring the
+	 *            {@link EJBContainer}. Must be non-<code>null</code>.
+	 */
+	public EJBContainerRule(final Properties properties) {
 		checkNotNull(properties, "properties");
 
 		this.properties = properties;
 	}
 
+	/**
+	 * Create and start the container.
+	 */
 	@Override
 	protected void before() throws Throwable {
 		container = new AppContainer(properties);
 	}
 
+	/**
+	 * Close the container.
+	 */
 	@Override
 	protected void after() {
 		container.close();
