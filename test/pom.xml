@@ -28,12 +28,12 @@
 
 	<parent>
 		<groupId>com.hartveld.commons</groupId>
-		<artifactId>hartveld-commons-parent</artifactId>
+		<artifactId>com.hartveld.commons.parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.hartveld.commons.test</groupId>
-	<artifactId>test-parent</artifactId>
+	<artifactId>com.hartveld.commons.test.parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Hartveld.COM - Commons - Test - Parent project</name>
 

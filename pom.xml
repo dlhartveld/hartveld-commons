@@ -27,7 +27,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.hartveld.commons</groupId>
-	<artifactId>hartveld-commons-parent</artifactId>
+	<artifactId>com.hartveld.commons.parent</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Hartveld.COM - Commons - Parent project</name>
