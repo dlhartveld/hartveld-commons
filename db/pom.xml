@@ -21,23 +21,52 @@
  * SOFTWARE.
  -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>com.hartveld.commons.parent</artifactId>
 		<groupId>com.hartveld.commons</groupId>
+		<artifactId>com.hartveld.commons.parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.hartveld.commons.web</groupId>
-	<artifactId>com.hartveld.commons.web.parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Hartveld.COM - Commons - Web - Parent project</name>
+	<artifactId>com.hartveld.commons.db</artifactId>
+	<name>Hartveld.COM - Commons - Database support</name>
 
-	<modules>
-		<module>jetty-webapp</module>
-	</modules>
+	<properties>
+		<version.dep.liquibase>2.0.5</version.dep.liquibase>
+		<version.dep.liquibase.slf4j>1.0.0</version.dep.liquibase.slf4j>
+		<version.dep.hibernate>4.2.1.Final</version.dep.hibernate>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${version.dep.liquibase}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mattbertolini</groupId>
+			<artifactId>liquibase-slf4j</artifactId>
+			<version>${version.dep.liquibase.slf4j}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${version.dep.hibernate}</version>
+		</dependency>
+
+	</dependencies>
 
 </project>

@@ -38,34 +38,34 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 	private final Server server;
 	private final ServerConnector connector;
 
-	public JettyGuiceJerseyServer(int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase) {
+	public JettyGuiceJerseyServer(final int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase) {
 		LOG.trace("Creating server for port: {}", port);
 
-		this.server = new Server(port);
+		server = new Server(port);
 
-		this.connector = new ServerConnector(this.server);
-		this.server.addConnector(connector);
+		connector = new ServerConnector(server);
+		server.addConnector(connector);
 
-		this.server.setHandler(context(apiPackage, apiContext, staticResourcesClassPathBase));
+		server.setHandler(context(apiPackage, apiContext, staticResourcesClassPathBase));
 	}
 
 	public int getPort() {
-		return this.connector.getLocalPort();
+		return connector.getLocalPort();
 	}
 
 	public void start() throws Exception {
 		LOG.trace("Starting server ...");
 
-		this.server.start();
+		server.start();
 
-		LOG.trace("Actual server port: {}", this.connector.getLocalPort());
+		LOG.trace("Actual server port: {}", connector.getLocalPort());
 	}
 
 	@Override
 	public void close() throws Exception {
 		LOG.trace("Stopping server ...");
 
-		this.server.stop();
+		server.stop();
 	}
 
 	private static ServletContextHandler context(final String apiPackage, final String apiContext, final String staticResourceClassPathBase) {
@@ -85,7 +85,7 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 		holder.setInitParameter("resourceBase", resourceBasePath);
 		holder.setInitParameter("pathInfoOnly", "true");
 
-		context.setWelcomeFiles(new String [] { "index.html" });
+		context.setWelcomeFiles(new String[] { "index.html" });
 
 		context.addFilter(com.google.inject.servlet.GuiceFilter.class, '/' + apiContext + "/*", null);
 		context.addEventListener(new GuiceJerseyApiContextListener(apiPackage, apiContext));

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
  * Copyright (c) 2013 David Hartveld
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,25 +18,26 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- -->
+ */
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+package com.hartveld.commons.testing.schema;
 
-	<modelVersion>4.0.0</modelVersion>
+import java.util.List;
+import javax.persistence.EntityManager;
 
-	<parent>
-		<artifactId>com.hartveld.commons.parent</artifactId>
-		<groupId>com.hartveld.commons</groupId>
-		<version>0.1-SNAPSHOT</version>
-	</parent>
+public interface DAO<T> {
 
-	<groupId>com.hartveld.commons.web</groupId>
-	<artifactId>com.hartveld.commons.web.parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Hartveld.COM - Commons - Web - Parent project</name>
+	public abstract EntityManager getEntityManager();
 
-	<modules>
-		<module>jetty-webapp</module>
-	</modules>
+	public abstract Class<T> getEntityClass();
 
-</project>
+	public abstract String getEntityName();
+
+	public abstract void persist(final T entity);
+
+	@SuppressWarnings("unchecked")
+	public abstract void persistAll(final T... entities);
+
+	public abstract List<T> retrieveAll();
+
+}

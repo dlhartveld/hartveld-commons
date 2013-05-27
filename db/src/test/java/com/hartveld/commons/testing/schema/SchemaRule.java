@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
  * Copyright (c) 2013 David Hartveld
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,25 +18,42 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- -->
+ */
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+package com.hartveld.commons.testing.schema;
 
-	<modelVersion>4.0.0</modelVersion>
+import org.junit.rules.ExternalResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	<parent>
-		<artifactId>com.hartveld.commons.parent</artifactId>
-		<groupId>com.hartveld.commons</groupId>
-		<version>0.1-SNAPSHOT</version>
-	</parent>
+public class SchemaRule extends ExternalResource {
 
-	<groupId>com.hartveld.commons.web</groupId>
-	<artifactId>com.hartveld.commons.web.parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Hartveld.COM - Commons - Web - Parent project</name>
+	private static final Logger LOG = LoggerFactory.getLogger(SchemaRule.class);
 
-	<modules>
-		<module>jetty-webapp</module>
-	</modules>
+	private final String url;
+	private final String username;
+	private final String password;
+	private final String context;
 
-</project>
+	public SchemaRule(final String url, final String username, final String password, final String context) {
+		this.url = url;
+		this.username = username;
+		this.password = password;
+		this.context = context;
+	}
+
+	@Override
+	protected void before() throws Throwable {
+		LOG.trace("Setting up database ...");
+		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
+		updater.dropAndCreate();
+	}
+
+	@Override
+	protected void after() {
+		LOG.trace("Cleaning up database ...");
+		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
+		updater.drop();
+	}
+
+}

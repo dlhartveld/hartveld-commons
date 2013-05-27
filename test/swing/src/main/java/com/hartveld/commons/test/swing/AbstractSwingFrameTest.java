@@ -154,7 +154,9 @@ public abstract class AbstractSwingFrameTest {
 		for (final Component c : container.getComponents()) {
 			if (clazz.isAssignableFrom(c.getClass())) {
 				if (name == null || name.equals(c.getName())) {
-					return (T) c;
+					@SuppressWarnings("unchecked")
+					final T target = (T) c;
+					return target;
 				}
 			} else if (c instanceof Container) {
 				final T nested = lookup((Container) c, name, clazz);
