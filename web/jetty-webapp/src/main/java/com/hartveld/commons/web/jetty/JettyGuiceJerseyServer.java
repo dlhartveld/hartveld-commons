@@ -36,21 +36,17 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 	private static final Logger LOG = LoggerFactory.getLogger(JettyGuiceJerseyServer.class);
 
 	private final Server server;
-	private final ServerConnector connector;
 
 	public JettyGuiceJerseyServer(final int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase) {
 		LOG.trace("Creating server for port: {}", port);
 
 		server = new Server(port);
 
-		connector = new ServerConnector(server);
-		server.addConnector(connector);
-
 		server.setHandler(context(apiPackage, apiContext, staticResourcesClassPathBase));
 	}
 
 	public int getPort() {
-		return connector.getLocalPort();
+		return ((ServerConnector) server.getConnectors()[0]).getLocalPort();
 	}
 
 	public void start() throws Exception {
@@ -58,7 +54,7 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 
 		server.start();
 
-		LOG.trace("Actual server port: {}", connector.getLocalPort());
+		LOG.trace("Actual server port: {}", getPort());
 	}
 
 	@Override
