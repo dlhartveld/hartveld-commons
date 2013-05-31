@@ -27,6 +27,8 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.inject.Scopes;
+import com.google.inject.persist.PersistFilter;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import java.util.HashMap;
@@ -42,8 +44,9 @@ public class GuiceJerseyApiModule extends JerseyServletModule {
 
 	private final String packageName;
 	private final String context;
+	private final String persistenceUnit;
 
-	public GuiceJerseyApiModule(final String packageName, final String context) {
+	public GuiceJerseyApiModule(final String packageName, final String context, final String persistenceUnit) {
 		checkArgument(isNotEmpty(packageName), "packageName must be non-empty");
 		checkArgument(isNotEmpty(context), "context must be non-empty");
 
@@ -52,18 +55,38 @@ public class GuiceJerseyApiModule extends JerseyServletModule {
 
 		this.packageName = packageName;
 		this.context = context;
+		this.persistenceUnit = persistenceUnit;
 	}
 
 	@Override
 	protected void configureServlets() {
 		LOG.trace("Configuring servlets ...");
 
-		bind(JacksonJsonProvider.class).in(Scopes.SINGLETON);
+		if (persistenceUnit != null) {
+			installGuicePersistModule();
+		} else {
+			LOG.trace("No persistence unit configured, so ersistence module will not be installed.");
+		}
+
+		enableJerseyGuiceSupport();
+	}
+
+	private void installGuicePersistModule() {
+		install(new JpaPersistModule(persistenceUnit));
+		filter("/*").through(PersistFilter.class);
+	}
+
+	private void enableJerseyGuiceSupport() {
+		enableJacksonJsonSupport();
 
 		final Map<String, String> params = new HashMap<>();
-		params.put(JERSEY_SCAN_PACKAGE, this.packageName);
+		params.put(JERSEY_SCAN_PACKAGE, packageName);
 
-		filter('/' + this.context + "/*").through(GuiceContainer.class, params);
+		filter('/' + context + "/*").through(GuiceContainer.class, params);
+	}
+
+	private void enableJacksonJsonSupport() {
+		bind(JacksonJsonProvider.class).in(Scopes.SINGLETON);
 	}
 
 }

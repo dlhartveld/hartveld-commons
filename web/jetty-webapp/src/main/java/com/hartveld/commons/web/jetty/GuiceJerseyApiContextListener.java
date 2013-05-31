@@ -37,13 +37,15 @@ public class GuiceJerseyApiContextListener extends GuiceServletContextListener {
 
 	private final String apiPackage;
 	private final String apiContext;
+	private final String persistenceUnit;
 
-	public GuiceJerseyApiContextListener(final String apiPackage, final String apiContext) {
+	public GuiceJerseyApiContextListener(final String apiPackage, final String apiContext, final String persistenceUnit) {
 		checkArgument(isNotEmpty(apiPackage), "apiPackage must be non-empty");
 		checkArgument(isNotEmpty(apiContext), "apiContext must be non-empty");
 
 		this.apiPackage = apiPackage;
 		this.apiContext = apiContext;
+		this.persistenceUnit = persistenceUnit;
 	}
 
 	@Override
@@ -51,8 +53,8 @@ public class GuiceJerseyApiContextListener extends GuiceServletContextListener {
 		LOG.trace("Creating injector ...");
 
 		return Guice.createInjector(
-				new GuiceJerseyApiModule(apiPackage, apiContext)
-		);
+				new GuiceJerseyApiModule(apiPackage, apiContext, persistenceUnit)
+				);
 	}
 
 }

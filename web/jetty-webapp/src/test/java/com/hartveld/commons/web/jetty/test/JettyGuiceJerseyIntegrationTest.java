@@ -43,7 +43,7 @@ public class JettyGuiceJerseyIntegrationTest {
 	private static final Logger LOG = LoggerFactory.getLogger(JettyGuiceJerseyIntegrationTest.class);
 
 	@Rule
-	public JettyServerRule server = new JettyServerRule(0, "api", "com.hartveld.commons.web.jetty.test", "/web-test");
+	public JettyServerRule server = new JettyServerRule(0, "api", "com.hartveld.commons.web.jetty.test", "/web-test", null);
 
 	private HttpClient client;
 

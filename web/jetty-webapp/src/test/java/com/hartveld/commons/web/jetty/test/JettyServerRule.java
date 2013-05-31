@@ -35,8 +35,8 @@ public class JettyServerRule extends ExternalResource {
 
 	private final JettyGuiceJerseyServer server;
 
-	public JettyServerRule(final int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase) {
-		this.server = new JettyGuiceJerseyServer(port, apiContext, apiPackage, staticResourcesClassPathBase);
+	public JettyServerRule(final int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase, final String persistenceUnit) {
+		server = new JettyGuiceJerseyServer(port, apiContext, apiPackage, staticResourcesClassPathBase, persistenceUnit);
 	}
 
 	public String getHost() {
@@ -44,7 +44,7 @@ public class JettyServerRule extends ExternalResource {
 	}
 
 	public int getPort() {
-		return this.server.getPort();
+		return server.getPort();
 	}
 
 	public String getServerUri() {
@@ -54,14 +54,14 @@ public class JettyServerRule extends ExternalResource {
 	@Override
 	protected void before() throws Throwable {
 		LOG.trace("Starting server ...");
-		this.server.start();
+		server.start();
 	}
 
 	@Override
 	protected void after() {
 		LOG.trace("Stopping server ...");
 		try {
-			this.server.close();
+			server.close();
 		} catch (final Exception ex) {
 			LOG.warn("Failed to close server: {}", ex.getMessage(), ex);
 		}

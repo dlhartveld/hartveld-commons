@@ -37,12 +37,12 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 
 	private final Server server;
 
-	public JettyGuiceJerseyServer(final int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase) {
+	public JettyGuiceJerseyServer(final int port, final String apiContext, final String apiPackage, final String staticResourcesClassPathBase, final String persistenceUnit) {
 		LOG.trace("Creating server for port: {}", port);
 
 		server = new Server(port);
 
-		server.setHandler(context(apiPackage, apiContext, staticResourcesClassPathBase));
+		server.setHandler(context(apiPackage, apiContext, staticResourcesClassPathBase, persistenceUnit));
 	}
 
 	public int getPort() {
@@ -64,8 +64,8 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 		server.stop();
 	}
 
-	private static ServletContextHandler context(final String apiPackage, final String apiContext, final String staticResourceClassPathBase) {
-		LOG.trace("Creating context with api @ {} - static files @ {}", apiContext, staticResourceClassPathBase);
+	private static ServletContextHandler context(final String apiPackage, final String apiContext, final String staticResourceClassPathBase, final String persistenceUnit) {
+		LOG.trace("Creating context with api @ {} - static files @ {} - PU: {}", apiContext, staticResourceClassPathBase, persistenceUnit);
 
 		final Resource newClassPathResource = Resource.newClassPathResource(staticResourceClassPathBase);
 		if (newClassPathResource == null) {
@@ -84,7 +84,7 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 		context.setWelcomeFiles(new String[] { "index.html" });
 
 		context.addFilter(com.google.inject.servlet.GuiceFilter.class, '/' + apiContext + "/*", null);
-		context.addEventListener(new GuiceJerseyApiContextListener(apiPackage, apiContext));
+		context.addEventListener(new GuiceJerseyApiContextListener(apiPackage, apiContext, persistenceUnit));
 
 		return context;
 	}
