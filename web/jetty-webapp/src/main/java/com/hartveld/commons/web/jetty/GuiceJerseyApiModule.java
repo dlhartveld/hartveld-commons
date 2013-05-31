@@ -65,7 +65,7 @@ public class GuiceJerseyApiModule extends JerseyServletModule {
 		if (persistenceUnit != null) {
 			installGuicePersistModule();
 		} else {
-			LOG.trace("No persistence unit configured, so ersistence module will not be installed.");
+			LOG.trace("No persistence unit configured, so persistence module will not be installed.");
 		}
 
 		enableJerseyGuiceSupport();

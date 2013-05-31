@@ -76,12 +76,13 @@ public class JettyGuiceJerseyServer implements AutoCloseable {
 		LOG.trace("Static resources URL resolves to: {}", resourceBasePath);
 
 		final ServletContextHandler context = new ServletContextHandler();
+		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
 
 		final ServletHolder holder = context.addServlet(DefaultServlet.class, "/*");
 		holder.setInitParameter("resourceBase", resourceBasePath);
 		holder.setInitParameter("pathInfoOnly", "true");
 
-		context.setWelcomeFiles(new String[] { "index.html" });
+		context.setWelcomeFiles(new String[] { "index.html", "index.jsp" });
 
 		context.addFilter(com.google.inject.servlet.GuiceFilter.class, '/' + apiContext + "/*", null);
 		context.addEventListener(new GuiceJerseyApiContextListener(apiPackage, apiContext, persistenceUnit));
