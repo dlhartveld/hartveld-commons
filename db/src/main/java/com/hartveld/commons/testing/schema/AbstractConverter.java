@@ -22,24 +22,30 @@
 
 package com.hartveld.commons.testing.schema;
 
-import java.util.List;
-import javax.persistence.EntityManager;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-public interface DAO<T> {
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	public abstract EntityManager getEntityManager();
+public abstract class AbstractConverter<Model, DTO> implements Converter<Model, DTO> {
 
-	public abstract Class<T> getEntityClass();
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractConverter.class);
 
-	public abstract String getEntityName();
+	@Override
+	public Set<DTO> toDTOs(final Set<Model> models) {
+		LOG.trace("toDTOs: {}", models);
 
-	public abstract void persist(final T entity);
+		checkNotNull(models, "models");
 
-	@SuppressWarnings("unchecked")
-	public abstract void persistAll(final T... entities);
+		final Builder<DTO> builder = ImmutableSet.builder();
+		for (final Model model : models) {
+			builder.add(toDTO(model));
+		}
 
-	public abstract List<T> retrieveAll();
-
-	public abstract T retrieveById(final long id);
+		return builder.build();
+	}
 
 }

@@ -44,6 +44,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${version.dep.hibernate}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 			<version>${version.dep.liquibase}</version>
@@ -59,12 +65,6 @@
 					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${version.dep.hibernate}</version>
 		</dependency>
 
 	</dependencies>

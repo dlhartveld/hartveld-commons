@@ -22,24 +22,12 @@
 
 package com.hartveld.commons.testing.schema;
 
-import java.util.List;
-import javax.persistence.EntityManager;
+import java.util.Set;
 
-public interface DAO<T> {
+public interface Converter<Model, DTO> {
 
-	public abstract EntityManager getEntityManager();
+	public abstract DTO toDTO(final Model model);
 
-	public abstract Class<T> getEntityClass();
-
-	public abstract String getEntityName();
-
-	public abstract void persist(final T entity);
-
-	@SuppressWarnings("unchecked")
-	public abstract void persistAll(final T... entities);
-
-	public abstract List<T> retrieveAll();
-
-	public abstract T retrieveById(final long id);
+	public abstract Set<DTO> toDTOs(final Set<Model> units);
 
 }

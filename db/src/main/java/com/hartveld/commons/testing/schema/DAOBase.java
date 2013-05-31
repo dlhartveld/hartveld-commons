@@ -32,7 +32,7 @@ import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DAOBase<T> implements DAO<T> {
+public abstract class DAOBase<T> implements DAO<T> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DAOBase.class);
 
@@ -89,9 +89,18 @@ public class DAOBase<T> implements DAO<T> {
 
 		final TypedQuery<T> query = em.createQuery("from " + entityName, entityClass);
 
-		final List<T> results = query.getResultList();
+		return query.getResultList();
+	}
 
-		return results;
+	@Override
+	public T retrieveById(final long id) {
+		LOG.trace("retrieveById: {}", id);
+
+		final TypedQuery<T> query = em.createQuery("from " + entityName + " where id = :id", entityClass);
+
+		query.setParameter("id", id);
+
+		return query.getSingleResult();
 	}
 
 	protected final TypedQuery<T> createQuery(final String query) {
