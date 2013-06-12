@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

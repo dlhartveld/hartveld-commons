@@ -20,40 +20,32 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db;
 
-import org.junit.rules.ExternalResource;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
+import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SchemaRule extends ExternalResource {
+public abstract class AbstractConverter<Model, DTO> implements Converter<Model, DTO> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SchemaRule.class);
-
-	private final String url;
-	private final String username;
-	private final String password;
-	private final String context;
-
-	public SchemaRule(final String url, final String username, final String password, final String context) {
-		this.url = url;
-		this.username = username;
-		this.password = password;
-		this.context = context;
-	}
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractConverter.class);
 
 	@Override
-	protected void before() throws Throwable {
-		LOG.trace("Setting up database ...");
-		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
-		updater.dropAndCreate();
-	}
+	public Collection<DTO> toDTOs(final Collection<Model> models) {
+		LOG.trace("toDTOs: {}", models);
 
-	@Override
-	protected void after() {
-		LOG.trace("Cleaning up database ...");
-		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
-		updater.drop();
+		checkNotNull(models, "models");
+
+		final Builder<DTO> builder = ImmutableSet.builder();
+		for (final Model model : models) {
+			builder.add(toDTO(model));
+		}
+
+		return builder.build();
 	}
 
 }

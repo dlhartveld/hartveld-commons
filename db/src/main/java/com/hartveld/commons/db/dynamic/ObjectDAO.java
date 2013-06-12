@@ -20,30 +20,10 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db.dynamic;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import com.hartveld.commons.db.DAO;
 
-@MappedSuperclass
-public class EntityBase {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@Version
-	private long version;
-
-	public final long getId() {
-		return id;
-	}
-
-	public final long getVersion() {
-		return version;
-	}
+public interface ObjectDAO extends DAO<Object> {
 
 }

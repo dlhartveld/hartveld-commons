@@ -22,6 +22,8 @@
 
 package com.hartveld.commons.web.jetty.test;
 
+import static org.apache.http.HttpStatus.SC_FORBIDDEN;
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -33,6 +35,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -68,7 +71,22 @@ public class JettyGuiceJerseyIntegrationTest {
 		LOG.trace("Response  : {}", response.getStatusLine());
 		LOG.trace("Contents  : {}", contentsOf(response));
 
-		assertThat(response.getStatusLine().getStatusCode(), is(200));
+		assertThat(response.getStatusLine().getStatusCode(), is(SC_OK));
+	}
+
+	@Test
+	@Ignore("Not yet implemented")
+	public void testThatSecuredResourceCannotBeRetrieved() throws Exception {
+		final String url = "http://localhost:" + server.getPort() + "/api/secured/forbidden";
+
+		final HttpGet get = new HttpGet(url);
+		final HttpResponse response = client.execute(get);
+
+		LOG.trace("Request to: {}", url);
+		LOG.trace("Response  : {}", response.getStatusLine());
+		LOG.trace("Contents  : {}", contentsOf(response));
+
+		assertThat(response.getStatusLine().getStatusCode(), is(SC_FORBIDDEN));
 	}
 
 	private static String contentsOf(final HttpResponse response) throws IOException {

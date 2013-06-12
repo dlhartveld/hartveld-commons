@@ -20,32 +20,15 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db.dynamic;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.hartveld.commons.db.DAOBase;
+import javax.persistence.EntityManager;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
-import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class ObjectDAOImpl extends DAOBase<Object> implements ObjectDAO {
 
-public abstract class AbstractConverter<Model, DTO> implements Converter<Model, DTO> {
-
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractConverter.class);
-
-	@Override
-	public Set<DTO> toDTOs(final Set<Model> models) {
-		LOG.trace("toDTOs: {}", models);
-
-		checkNotNull(models, "models");
-
-		final Builder<DTO> builder = ImmutableSet.builder();
-		for (final Model model : models) {
-			builder.add(toDTO(model));
-		}
-
-		return builder.build();
+	public ObjectDAOImpl(final EntityManager em) {
+		super(em, Object.class);
 	}
 
 }

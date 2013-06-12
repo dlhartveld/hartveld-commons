@@ -20,26 +20,42 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db.schema;
 
-import java.util.List;
-import javax.persistence.EntityManager;
+import org.junit.rules.ExternalResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public interface DAO<T> {
+import com.hartveld.commons.db.schema.LiquibaseSchemaUpdater;
 
-	public abstract EntityManager getEntityManager();
+public class SchemaRule extends ExternalResource {
 
-	public abstract Class<T> getEntityClass();
+	private static final Logger LOG = LoggerFactory.getLogger(SchemaRule.class);
 
-	public abstract String getEntityName();
+	private final String url;
+	private final String username;
+	private final String password;
+	private final String context;
 
-	public abstract void persist(final T entity);
+	public SchemaRule(final String url, final String username, final String password, final String context) {
+		this.url = url;
+		this.username = username;
+		this.password = password;
+		this.context = context;
+	}
 
-	@SuppressWarnings("unchecked")
-	public abstract void persistAll(final T... entities);
+	@Override
+	protected void before() throws Throwable {
+		LOG.trace("Setting up database ...");
+		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
+		updater.dropAndCreate();
+	}
 
-	public abstract List<T> retrieveAll();
-
-	public abstract T retrieveById(final long id);
+	@Override
+	protected void after() {
+		LOG.trace("Cleaning up database ...");
+		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
+		updater.drop();
+	}
 
 }

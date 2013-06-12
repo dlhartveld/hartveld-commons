@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface Converter<Model, DTO> {
 
 	public abstract DTO toDTO(final Model model);
 
-	public abstract Set<DTO> toDTOs(final Set<Model> units);
+	public abstract Collection<DTO> toDTOs(final Collection<Model> units);
 
 }

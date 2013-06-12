@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package com.hartveld.commons.testing.schema;
+package com.hartveld.commons.db.schema;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

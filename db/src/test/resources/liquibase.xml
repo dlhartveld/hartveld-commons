@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet id="1" author="david">
+
+		<createSequence sequenceName="objectclass_id_seq" />
+		<createTable tableName="objectclass">
+			<column name="id" type="bigint" defaultValue="nextval('objectclass_id_seq'::regclass)">
+				<constraints primaryKey="true" unique="true" />
+			</column>
+			<column name="version" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createSequence sequenceName="objectclassproperty_id_seq" />
+		<createTable tableName="objectclassproperty">
+			<column name="id" type="bigint" defaultValue="nextval('objectclassproperty_id_seq'::regclass)">
+				<constraints primaryKey="true" unique="true" />
+			</column>
+			<column name="version" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="objectclass_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createSequence sequenceName="object_id_seq" />
+		<createTable tableName="object">
+			<column name="id" type="bigint" defaultValue="nextval('object_id_seq'::regclass)">
+				<constraints primaryKey="true" unique="true" />
+			</column>
+			<column name="version" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="objectclass_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createSequence sequenceName="property_id_seq" />
+		<createTable tableName="property">
+			<column name="id" type="bigint" defaultValue="nextval('property_id_seq'::regclass)">
+				<constraints primaryKey="true" unique="true" />
+			</column>
+			<column name="version" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="object_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="property_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="value" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+	</changeSet>
+
+</databaseChangeLog>
