@@ -39,7 +39,7 @@ public class ObjectClass extends EntityBase {
 	private String name;
 
 	@OneToMany(mappedBy = "objectClass")
-	private Set<Object> objects;
+	private Set<ObjectInstance> objects;
 
 	@OneToMany(mappedBy = "objectClass")
 	private final Set<ObjectClassProperty> properties = new HashSet<>();

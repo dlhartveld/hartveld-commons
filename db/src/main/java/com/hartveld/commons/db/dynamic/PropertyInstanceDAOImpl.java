@@ -22,8 +22,13 @@
 
 package com.hartveld.commons.db.dynamic;
 
-import com.hartveld.commons.db.DAO;
+import com.hartveld.commons.db.DAOBase;
+import javax.persistence.EntityManager;
 
-public interface ObjectDAO extends DAO<Object> {
+public class PropertyInstanceDAOImpl extends DAOBase<PropertyInstance> implements PropertyInstanceDAO {
+
+	public PropertyInstanceDAOImpl(final EntityManager em) {
+		super(em, PropertyInstance.class);
+	}
 
 }

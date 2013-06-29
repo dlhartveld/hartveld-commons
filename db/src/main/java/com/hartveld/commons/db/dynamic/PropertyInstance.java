@@ -30,10 +30,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
-public class Property extends EntityBase {
+public class PropertyInstance extends EntityBase {
 
 	@ManyToOne(optional = false)
-	private Object object;
+	private ObjectInstance objectInstance;
 
 	@ManyToOne(optional = false)
 	private ObjectClassProperty property;
@@ -41,18 +41,18 @@ public class Property extends EntityBase {
 	@Column(nullable = false)
 	private String value;
 
-	public Property(final Object object, final ObjectClassProperty property, final String value) {
-		this.object = object;
+	public PropertyInstance(final ObjectInstance objectInstance, final ObjectClassProperty property, final String value) {
+		this.objectInstance = objectInstance;
 		this.property = property;
 		this.value = value;
 	}
 
-	public Object getObject() {
-		return object;
+	public ObjectInstance getObject() {
+		return objectInstance;
 	}
 
-	public void setObject(final Object object) {
-		this.object = object;
+	public void setObject(final ObjectInstance objectInstance) {
+		this.objectInstance = objectInstance;
 	}
 
 	public ObjectClassProperty getProperty() {
@@ -78,7 +78,7 @@ public class Property extends EntityBase {
 		builder.append("id", getId());
 		builder.append("version", getVersion());
 
-		builder.append("object.id", getObject().getId());
+		builder.append("objectInstance.id", getObject().getId());
 		builder.append("property.id", getProperty());
 		builder.append("value", getValue());
 

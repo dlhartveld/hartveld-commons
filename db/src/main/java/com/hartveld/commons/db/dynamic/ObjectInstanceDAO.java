@@ -24,6 +24,6 @@ package com.hartveld.commons.db.dynamic;
 
 import com.hartveld.commons.db.DAO;
 
-public interface PropertyDAO extends DAO<Property> {
+public interface ObjectInstanceDAO extends DAO<ObjectInstance> {
 
 }

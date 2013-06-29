@@ -22,18 +22,18 @@
 
 package com.hartveld.commons.db.dynamic.test;
 
-import com.hartveld.commons.db.dynamic.Object;
+import com.hartveld.commons.db.dynamic.ObjectInstance;
 import com.hartveld.commons.db.dynamic.ObjectClass;
 import com.hartveld.commons.db.dynamic.ObjectClassDAO;
 import com.hartveld.commons.db.dynamic.ObjectClassDAOImpl;
 import com.hartveld.commons.db.dynamic.ObjectClassProperty;
 import com.hartveld.commons.db.dynamic.ObjectClassPropertyDAO;
 import com.hartveld.commons.db.dynamic.ObjectClassPropertyDAOImpl;
-import com.hartveld.commons.db.dynamic.ObjectDAO;
-import com.hartveld.commons.db.dynamic.ObjectDAOImpl;
-import com.hartveld.commons.db.dynamic.Property;
-import com.hartveld.commons.db.dynamic.PropertyDAO;
-import com.hartveld.commons.db.dynamic.PropertyDAOImpl;
+import com.hartveld.commons.db.dynamic.ObjectInstanceDAO;
+import com.hartveld.commons.db.dynamic.ObjectInstanceDAOImpl;
+import com.hartveld.commons.db.dynamic.PropertyInstance;
+import com.hartveld.commons.db.dynamic.PropertyInstanceDAO;
+import com.hartveld.commons.db.dynamic.PropertyInstanceDAOImpl;
 import com.hartveld.commons.db.schema.SchemaRule;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -76,8 +76,8 @@ public class DynamicDBIntegrationTest {
 		final ObjectClassDAO classDAO = new ObjectClassDAOImpl(em);
 		final ObjectClassPropertyDAO ocpDAO = new ObjectClassPropertyDAOImpl(em);
 
-		final ObjectDAO objectDAO = new ObjectDAOImpl(em);
-		final PropertyDAO propertyDAO = new PropertyDAOImpl(em);
+		final ObjectInstanceDAO objectInstanceDAO = new ObjectInstanceDAOImpl(em);
+		final PropertyInstanceDAO propertyInstanceDAO = new PropertyInstanceDAOImpl(em);
 
 		final ObjectClass c = new ObjectClass("C");
 		classDAO.persist(c);
@@ -85,11 +85,11 @@ public class DynamicDBIntegrationTest {
 		final ObjectClassProperty ocp = new ObjectClassProperty(c, "p");
 		ocpDAO.persist(ocp);
 
-		final Object o = new Object(c);
-		objectDAO.persist(o);
+		final ObjectInstance o = new ObjectInstance(c);
+		objectInstanceDAO.persist(o);
 
-		final Property p = new Property(o, ocp, "Hello, world!");
-		propertyDAO.persist(p);
+		final PropertyInstance p = new PropertyInstance(o, ocp, "Hello, world!");
+		propertyInstanceDAO.persist(p);
 
 		// IMPORTANT: make sure that the database accepts all changes.
 		tx.commit();

@@ -8,8 +8,8 @@
 
 		<class>com.hartveld.commons.db.dynamic.ObjectClass</class>
 		<class>com.hartveld.commons.db.dynamic.ObjectClassProperty</class>
-		<class>com.hartveld.commons.db.dynamic.Object</class>
-		<class>com.hartveld.commons.db.dynamic.Property</class>
+		<class>com.hartveld.commons.db.dynamic.ObjectInstance</class>
+		<class>com.hartveld.commons.db.dynamic.PropertyInstance</class>
 
 		<properties>
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />

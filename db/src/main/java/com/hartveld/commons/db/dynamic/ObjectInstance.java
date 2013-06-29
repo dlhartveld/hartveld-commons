@@ -33,15 +33,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
-public class Object extends EntityBase {
+public class ObjectInstance extends EntityBase {
 
 	@ManyToOne(optional = false)
 	private ObjectClass objectClass;
 
-	@OneToMany(mappedBy = "object")
-	private final Set<Property> properties = new HashSet<>();
+	@OneToMany(mappedBy = "objectInstance")
+	private final Set<PropertyInstance> propertyInstances = new HashSet<>();
 
-	public Object(final ObjectClass objectClass) {
+	public ObjectInstance(final ObjectClass objectClass) {
 		this.objectClass = objectClass;
 	}
 
@@ -53,16 +53,16 @@ public class Object extends EntityBase {
 		this.objectClass = objectClass;
 	}
 
-	public Set<Property> getProperties() {
-		return Collections.unmodifiableSet(properties);
+	public Set<PropertyInstance> getProperties() {
+		return Collections.unmodifiableSet(propertyInstances);
 	}
 
-	public boolean addProperty(final Property property) {
-		return properties.add(property);
+	public boolean addProperty(final PropertyInstance propertyInstance) {
+		return propertyInstances.add(propertyInstance);
 	}
 
-	public boolean removeProperty(final Property property) {
-		return properties.remove(property);
+	public boolean removeProperty(final PropertyInstance propertyInstance) {
+		return propertyInstances.remove(propertyInstance);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class Object extends EntityBase {
 		builder.append("version", super.getVersion());
 
 		builder.append("objectClass", getObjectClass());
-		builder.append("properties", getProperties());
+		builder.append("propertyInstances", getProperties());
 
 		return builder.toString();
 	}

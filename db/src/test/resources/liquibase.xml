@@ -34,9 +34,9 @@
 			</column>
 		</createTable>
 
-		<createSequence sequenceName="object_id_seq" />
-		<createTable tableName="object">
-			<column name="id" type="bigint" defaultValue="nextval('object_id_seq'::regclass)">
+		<createSequence sequenceName="objectinstance_id_seq" />
+		<createTable tableName="objectinstance">
+			<column name="id" type="bigint" defaultValue="nextval('objectinstance_id_seq'::regclass)">
 				<constraints primaryKey="true" unique="true" />
 			</column>
 			<column name="version" type="bigint">
@@ -47,15 +47,15 @@
 			</column>
 		</createTable>
 
-		<createSequence sequenceName="property_id_seq" />
-		<createTable tableName="property">
-			<column name="id" type="bigint" defaultValue="nextval('property_id_seq'::regclass)">
+		<createSequence sequenceName="propertyinstance_id_seq" />
+		<createTable tableName="propertyinstance">
+			<column name="id" type="bigint" defaultValue="nextval('propertyinstance_id_seq'::regclass)">
 				<constraints primaryKey="true" unique="true" />
 			</column>
 			<column name="version" type="bigint">
 				<constraints nullable="false" />
 			</column>
-			<column name="object_id" type="bigint">
+			<column name="objectinstance_id" type="bigint">
 				<constraints nullable="false" />
 			</column>
 			<column name="property_id" type="bigint">
