@@ -29,6 +29,8 @@ public interface DAO<T> {
 
 	public abstract EntityManager getEntityManager();
 
+	public abstract void flush();
+
 	public abstract Class<T> getEntityClass();
 
 	public abstract String getEntityName();

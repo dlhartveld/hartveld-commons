@@ -56,6 +56,11 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
+	public void flush() {
+		em.flush();
+	}
+
+	@Override
 	public final Class<T> getEntityClass() {
 		return entityClass;
 	}

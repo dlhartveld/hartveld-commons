@@ -23,11 +23,12 @@
 package com.hartveld.commons.db;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface Converter<Model, DTO> {
 
 	public abstract DTO toDTO(final Model model);
 
-	public abstract Collection<DTO> toDTOs(final Collection<Model> units);
+	public abstract List<DTO> toDTOs(final Collection<Model> units);
 
 }

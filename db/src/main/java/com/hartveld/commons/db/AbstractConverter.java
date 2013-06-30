@@ -24,9 +24,10 @@ package com.hartveld.commons.db;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 import java.util.Collection;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,12 +36,12 @@ public abstract class AbstractConverter<Model, DTO> implements Converter<Model, 
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractConverter.class);
 
 	@Override
-	public Collection<DTO> toDTOs(final Collection<Model> models) {
+	public List<DTO> toDTOs(final Collection<Model> models) {
 		LOG.trace("toDTOs: {}", models);
 
 		checkNotNull(models, "models");
 
-		final Builder<DTO> builder = ImmutableSet.builder();
+		final Builder<DTO> builder = ImmutableList.builder();
 		for (final Model model : models) {
 			builder.add(toDTO(model));
 		}
