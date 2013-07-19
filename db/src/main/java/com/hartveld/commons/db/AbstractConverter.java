@@ -36,7 +36,14 @@ public abstract class AbstractConverter<Model, DTO> implements Converter<Model, 
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractConverter.class);
 
 	@Override
-	public List<DTO> toDTOs(final Collection<Model> models) {
+	public final DTO toDTO(final Model model) {
+		LOG.trace("toDTO: {}", model);
+
+		return toDTO(model, false);
+	}
+
+	@Override
+	public final List<DTO> toDTOs(final Collection<Model> models) {
 		LOG.trace("toDTOs: {}", models);
 
 		checkNotNull(models, "models");

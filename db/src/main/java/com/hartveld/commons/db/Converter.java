@@ -29,6 +29,8 @@ public interface Converter<Model, DTO> {
 
 	public abstract DTO toDTO(final Model model);
 
+	public abstract DTO toDTO(final Model model, boolean incrementVersion);
+
 	public abstract List<DTO> toDTOs(final Collection<Model> units);
 
 }
