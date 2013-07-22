@@ -38,7 +38,7 @@
 	<properties>
 		<version.dep.liquibase>2.0.5</version.dep.liquibase>
 		<version.dep.liquibase.slf4j>1.0.0</version.dep.liquibase.slf4j>
-		<version.dep.hibernate>4.2.1.Final</version.dep.hibernate>
+		<version.dep.hibernate>4.2.3.Final</version.dep.hibernate>
 	</properties>
 
 	<dependencies>
