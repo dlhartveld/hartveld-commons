@@ -43,13 +43,13 @@ public abstract class AbstractConverter<Model, DTO> implements Converter<Model, 
 	}
 
 	@Override
-	public final List<DTO> toDTOs(final Collection<Model> models) {
-		LOG.trace("toDTOs: {}", models);
+	public final List<DTO> toDTOs(final Collection<? extends Model> list) {
+		LOG.trace("toDTOs: {}", list);
 
-		checkNotNull(models, "models");
+		checkNotNull(list, "list");
 
 		final Builder<DTO> builder = ImmutableList.builder();
-		for (final Model model : models) {
+		for (final Model model : list) {
 			builder.add(toDTO(model));
 		}
 
