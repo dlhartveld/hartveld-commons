@@ -66,7 +66,7 @@ public abstract class AbstractSwingFrameTest {
 
 	/**
 	 * Create the main {@link JFrame} used during the test.
-	 * <p/>
+	 *
 	 * This method is called on the EDT.
 	 * 
 	 * @return A newly created {@link JFrame} for use in the test.
@@ -77,20 +77,20 @@ public abstract class AbstractSwingFrameTest {
 
 	/**
 	 * Lookup all components that are needed by the test.
-	 * <p/>
+	 *
 	 * Gives the test case a chance to lookup all necessary components in the
 	 * main window that are later needed in the test case itself.
-	 * <p/>
+	 *
 	 * This method is called on the EDT.
 	 */
 	protected abstract void lookupComponents();
 
 	/**
 	 * Lookup a component of given type in the content pane of the main frame.
-	 * <p/>
+	 *
 	 * The first component encountered in the content pane of the main frame is
 	 * returned.
-	 * <p/>
+	 *
 	 * This method uses {@link JFrame#getContentPane()} and
 	 * {@link Container#getComponents()} to recurse over the component tree.
 	 * 
@@ -118,10 +118,10 @@ public abstract class AbstractSwingFrameTest {
 	/**
 	 * Lookup a component of given type and with a given name in the content
 	 * pane of the main frame.
-	 * <p/>
+	 *
 	 * The first correctly-named component encountered in the content pane of
 	 * the main frame is returned.
-	 * <p/>
+	 *
 	 * This method uses {@link JFrame#getContentPane()} and
 	 * {@link Container#getComponents()} to recurse over the component tree.
 	 * 
@@ -171,7 +171,7 @@ public abstract class AbstractSwingFrameTest {
 
 	/**
 	 * Close the main application frame, releasing all resources.
-	 * <p/>
+	 *
 	 * Closing the frame causes the UI lock to be released.
 	 * 
 	 * @see #waitForFrameToClose()

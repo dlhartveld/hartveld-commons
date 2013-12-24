@@ -23,7 +23,7 @@
  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -53,11 +53,11 @@
 
 		<version.dep.slf4j>1.7.5</version.dep.slf4j>
 		<version.dep.logback>1.0.13</version.dep.logback>
-		<version.dep.guava>14.0.1</version.dep.guava>
+		<version.dep.guava>15.0</version.dep.guava>
 		<version.dep.apache.commons-lang>2.6</version.dep.apache.commons-lang>
 		<version.dep.apache.commons-lang3>3.1</version.dep.apache.commons-lang3>
-		<version.dep.apache.httpclient>4.2.5</version.dep.apache.httpclient>
-		<version.dep.eclipse.jetty>9.0.4.v20130625</version.dep.eclipse.jetty>
+		<version.dep.apache.httpclient>4.3.1</version.dep.apache.httpclient>
+		<version.dep.eclipse.jetty>9.0.7.v20131107</version.dep.eclipse.jetty>
 		<version.dep.sun.jersey>1.17.1</version.dep.sun.jersey>
 		<version.dep.jackson>2.2.2</version.dep.jackson>
 		<version.dep.apache.openejb.javaee-api>6.0-5</version.dep.apache.openejb.javaee-api>
@@ -162,6 +162,12 @@
 				<groupId>org.apache.openejb</groupId>
 				<artifactId>openejb-core</artifactId>
 				<version>${version.dep.apache.openejb}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>${version.dep.sun.jersey}</version>
 			</dependency>
 
 			<dependency>

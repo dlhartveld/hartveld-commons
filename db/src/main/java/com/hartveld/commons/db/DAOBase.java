@@ -27,8 +27,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +88,28 @@ public abstract class DAOBase<T> implements DAO<T> {
 
 		for (final T cellType : entities) {
 			persist(cellType);
+		}
+	}
+
+	@Override
+	public void remove(final T entity) {
+		LOG.trace("remove: {}", entity);
+
+		checkNotNull(entity, "entity");
+
+		em.remove(entity);
+	}
+
+	@Override
+	public void removeById(final long id) {
+		LOG.trace("removeById: {}", id);
+
+		final T entity = em.find(entityClass, id);
+
+		if (entity != null) {
+			em.remove(entity);
+		} else {
+			throw new EntityNotFoundException("Entity of type '" + entityName + "' with id '" + id + "' does not exist");
 		}
 	}
 
