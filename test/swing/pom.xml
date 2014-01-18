@@ -29,7 +29,7 @@
 	<parent>
 		<groupId>com.hartveld.commons.test</groupId>
 		<artifactId>com.hartveld.commons.test.parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>com.hartveld.commons.test.swing</artifactId>

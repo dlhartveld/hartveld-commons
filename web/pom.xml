@@ -28,7 +28,7 @@
 	<parent>
 		<artifactId>com.hartveld.commons.parent</artifactId>
 		<groupId>com.hartveld.commons</groupId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.hartveld.commons.web</groupId>
