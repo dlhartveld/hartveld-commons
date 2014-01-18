@@ -28,10 +28,11 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -48,16 +49,20 @@ public class JettyGuiceJerseyIntegrationTest {
 	@Rule
 	public JettyServerRule server = new JettyServerRule(0, "api", "com.hartveld.commons.web.jetty.test", "/web-test", null);
 
-	private HttpClient client;
+	private CloseableHttpClient client;
 
 	@Before
 	public void setUp() {
-		client = new DefaultHttpClient();
+		client = HttpClientBuilder.create().build();
 	}
 
 	@After
 	public void tearDown() {
-		client.getConnectionManager().shutdown();
+		try {
+			client.close();
+		} catch (IOException e) {
+			LOG.warn("Failed to close HttpClient", e);
+		}
 	}
 
 	@Test
