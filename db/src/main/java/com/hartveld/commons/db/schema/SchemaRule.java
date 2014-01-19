@@ -26,8 +26,6 @@ import org.junit.rules.ExternalResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hartveld.commons.db.schema.LiquibaseSchemaUpdater;
-
 public class SchemaRule extends ExternalResource {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SchemaRule.class);
@@ -42,6 +40,10 @@ public class SchemaRule extends ExternalResource {
 		this.username = username;
 		this.password = password;
 		this.context = context;
+	}
+
+	public SchemaRule(final String url, final String username, final String password) {
+		this(url, username, password, null);
 	}
 
 	@Override
