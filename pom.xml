@@ -43,7 +43,6 @@
 
 	<modules>
 		<module>test</module>
-		<module>web</module>
 		<module>db</module>
 	</modules>
 
