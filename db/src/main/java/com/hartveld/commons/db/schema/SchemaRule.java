@@ -48,14 +48,14 @@ public class SchemaRule extends ExternalResource {
 
 	@Override
 	protected void before() throws Throwable {
-		LOG.trace("Setting up database ...");
+		LOG.debug("Setting up database ...");
 		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
 		updater.dropAndCreate();
 	}
 
 	@Override
 	protected void after() {
-		LOG.trace("Cleaning up database ...");
+		LOG.debug("Cleaning up database ...");
 		final LiquibaseSchemaUpdater updater = new LiquibaseSchemaUpdater(url, username, password, context);
 		updater.drop();
 	}
