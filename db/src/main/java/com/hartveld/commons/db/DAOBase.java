@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2013 David Hartveld
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -59,7 +59,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public void flush() {
+	public final void flush() {
 		em.flush();
 	}
 
@@ -92,7 +92,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public void remove(final T entity) {
+	public final void remove(final T entity) {
 		LOG.trace("remove: {}", entity);
 
 		checkNotNull(entity, "entity");
@@ -101,7 +101,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public void removeById(final long id) {
+	public final void removeById(final long id) {
 		LOG.trace("removeById: {}", id);
 
 		final T entity = em.find(entityClass, id);
@@ -123,7 +123,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public T retrieveById(final long id) {
+	public final T retrieveById(final long id) {
 		LOG.trace("retrieveById: {}", id);
 
 		final TypedQuery<T> query = em.createQuery("from " + entityName + " where id = :id", entityClass);
