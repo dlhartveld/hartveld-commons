@@ -101,7 +101,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public final void removeById(final long id) {
+	public void removeById(final long id) {
 		LOG.trace("removeById: {}", id);
 
 		final T entity = em.find(entityClass, id);
@@ -114,7 +114,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public final List<T> retrieveAll() {
+	public List<T> retrieveAll() {
 		LOG.trace("retrieveAll:");
 
 		final TypedQuery<T> query = em.createQuery("from " + entityName, entityClass);
@@ -123,7 +123,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public final T retrieveById(final long id) {
+	public T retrieveById(final long id) {
 		LOG.trace("retrieveById: {}", id);
 
 		final TypedQuery<T> query = em.createQuery("from " + entityName + " where id = :id", entityClass);
