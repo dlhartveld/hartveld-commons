@@ -53,7 +53,6 @@
 		<version.dep.slf4j>1.7.5</version.dep.slf4j>
 		<version.dep.logback>1.0.13</version.dep.logback>
 		<version.dep.guava>15.0</version.dep.guava>
-		<version.dep.apache.commons-lang>2.6</version.dep.apache.commons-lang>
 		<version.dep.apache.commons-lang3>3.1</version.dep.apache.commons-lang3>
 		<version.dep.apache.httpclient>4.3.1</version.dep.apache.httpclient>
 		<version.dep.eclipse.jetty>9.0.7.v20131107</version.dep.eclipse.jetty>
@@ -102,12 +101,6 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${version.dep.guava}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
-				<version>${version.dep.apache.commons-lang}</version>
 			</dependency>
 
 			<dependency>
@@ -210,11 +203,6 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
 		</dependency>
 
 		<dependency>
