@@ -52,16 +52,19 @@
 
 		<version.dep.slf4j>1.7.5</version.dep.slf4j>
 		<version.dep.logback>1.0.13</version.dep.logback>
-		<version.dep.guava>15.0</version.dep.guava>
-		<version.dep.apache.commons-lang3>3.1</version.dep.apache.commons-lang3>
-		<version.dep.apache.httpclient>4.3.1</version.dep.apache.httpclient>
-		<version.dep.eclipse.jetty>9.0.7.v20131107</version.dep.eclipse.jetty>
-		<version.dep.sun.jersey>1.17.1</version.dep.sun.jersey>
-		<version.dep.jackson>2.2.2</version.dep.jackson>
+		<version.dep.guava>16.0</version.dep.guava>
+		<version.dep.apache.commons-lang3>3.2.1</version.dep.apache.commons-lang3>
+		<version.dep.apache.httpclient>4.3.2</version.dep.apache.httpclient>
+		<version.dep.eclipse.jetty>9.1.1.v20140108</version.dep.eclipse.jetty>
+		<version.dep.sun.jersey>1.18</version.dep.sun.jersey>
+		<version.dep.jackson>2.3.1</version.dep.jackson>
 		<version.dep.apache.openejb.javaee-api>6.0-5</version.dep.apache.openejb.javaee-api>
-		<version.dep.apache.openejb>4.5.2</version.dep.apache.openejb>
+		<version.dep.apache.openejb>4.6.0</version.dep.apache.openejb>
 		<version.dep.apache.shiro>1.2.2</version.dep.apache.shiro>
-
+		<version.dep.liquibase>2.0.5</version.dep.liquibase>
+		<version.dep.liquibase.slf4j>1.0.0</version.dep.liquibase.slf4j>
+		<version.dep.hibernate>4.3.1.Final</version.dep.hibernate>
+		<version.dep.postgresql>9.1-901-1.jdbc4</version.dep.postgresql>
 		<version.dep.junit>4.11</version.dep.junit>
 		<version.dep.hamcrest>1.3</version.dep.hamcrest>
 		<version.dep.mockito>1.9.5</version.dep.mockito>
@@ -160,6 +163,42 @@
 				<groupId>com.sun.jersey</groupId>
 				<artifactId>jersey-client</artifactId>
 				<version>${version.dep.sun.jersey}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${version.dep.hibernate}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>${version.dep.sun.jersey}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>${version.dep.liquibase}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.mattbertolini</groupId>
+				<artifactId>liquibase-slf4j</artifactId>
+				<version>${version.dep.liquibase.slf4j}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${version.dep.postgresql}</version>
 			</dependency>
 
 			<dependency>

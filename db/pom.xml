@@ -35,36 +35,21 @@
 	<artifactId>com.hartveld.commons.db</artifactId>
 	<name>Hartveld.COM - Commons - Database support</name>
 
-	<properties>
-		<version.dep.liquibase>2.0.5</version.dep.liquibase>
-		<version.dep.liquibase.slf4j>1.0.0</version.dep.liquibase.slf4j>
-		<version.dep.hibernate>4.2.7.SP1</version.dep.hibernate>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${version.dep.hibernate}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-			<version>${version.dep.liquibase}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.mattbertolini</groupId>
 			<artifactId>liquibase-slf4j</artifactId>
-			<version>${version.dep.liquibase.slf4j}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -76,7 +61,6 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
 			<scope>test</scope>
 		</dependency>
 
