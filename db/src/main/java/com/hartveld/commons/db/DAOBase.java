@@ -26,6 +26,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -35,7 +36,7 @@ import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class DAOBase<T> implements DAO<T> {
+public abstract class DAOBase<T extends EntityBase> implements DAO<T> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DAOBase.class);
 
@@ -74,7 +75,7 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public final void persist(final T entity) {
+	public final void persist(final EntityBase entity) {
 		LOG.trace("persist: {}", entity);
 
 		checkNotNull(entity, "entity");
@@ -83,16 +84,25 @@ public abstract class DAOBase<T> implements DAO<T> {
 	}
 
 	@Override
-	public final void persistAll(@SuppressWarnings("unchecked") final T... entities) {
+	public final void persistAll(final EntityBase... entities) {
 		LOG.trace("persistAll: {}", (Object) entities);
 
-		for (final T cellType : entities) {
-			persist(cellType);
+		for (final EntityBase entity : entities) {
+			persist(entity);
 		}
 	}
 
 	@Override
-	public final void remove(final T entity) {
+	public final void persistAll(final Collection<? extends EntityBase> entities) {
+		LOG.trace("persistAll: {}", entities);
+
+		for (final EntityBase entity : entities) {
+			persist(entity);
+		}
+	}
+
+	@Override
+	public final void remove(final EntityBase entity) {
 		LOG.trace("remove: {}", entity);
 
 		checkNotNull(entity, "entity");

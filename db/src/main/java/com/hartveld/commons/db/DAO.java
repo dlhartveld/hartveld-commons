@@ -22,11 +22,12 @@
 
 package com.hartveld.commons.db;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-public interface DAO<T> {
+public interface DAO<T extends EntityBase> {
 
 	public abstract EntityManager getEntityManager();
 
@@ -40,12 +41,13 @@ public interface DAO<T> {
 
 	public abstract T retrieveById(final long id);
 
-	public abstract void persist(final T entity);
+	public abstract void persist(final EntityBase entity);
 
-	@SuppressWarnings("unchecked")
-	public abstract void persistAll(final T... entities);
+	public abstract void persistAll(final EntityBase... entities);
 
-	public abstract void remove(final T entity);
+	public abstract void persistAll(final Collection<? extends EntityBase> entities);
+
+	public abstract void remove(final EntityBase entity);
 
 	public abstract void removeById(final long id);
 
