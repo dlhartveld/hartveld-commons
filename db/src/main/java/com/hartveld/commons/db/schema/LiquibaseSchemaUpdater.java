@@ -26,11 +26,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +45,10 @@ public class LiquibaseSchemaUpdater {
 	private final String password;
 
 	private final String context;
+
+	public LiquibaseSchemaUpdater(final String url, final String username, final String password) {
+		this(url, username, password, null);
+	}
 
 	public LiquibaseSchemaUpdater(final String url, final String username, final String password, final String context) {
 		this.url = url;
