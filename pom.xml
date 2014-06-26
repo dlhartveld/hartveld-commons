@@ -55,9 +55,6 @@
 		<version.dep.guava>16.0</version.dep.guava>
 		<version.dep.apache.commons-lang3>3.2.1</version.dep.apache.commons-lang3>
 		<version.dep.apache.httpclient>4.3.2</version.dep.apache.httpclient>
-		<version.dep.eclipse.jetty>9.1.1.v20140108</version.dep.eclipse.jetty>
-		<version.dep.sun.jersey>1.18</version.dep.sun.jersey>
-		<version.dep.jackson>2.3.1</version.dep.jackson>
 		<version.dep.apache.openejb.javaee-api>6.0-5</version.dep.apache.openejb.javaee-api>
 		<version.dep.apache.openejb>4.6.0</version.dep.apache.openejb>
 		<version.dep.apache.shiro>1.2.2</version.dep.apache.shiro>
@@ -119,35 +116,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-server</artifactId>
-				<version>${version.dep.eclipse.jetty}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-servlet</artifactId>
-				<version>${version.dep.eclipse.jetty}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-guice</artifactId>
-				<version>${version.dep.apache.shiro}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.sun.jersey.contribs</groupId>
-				<artifactId>jersey-guice</artifactId>
-				<version>${version.dep.sun.jersey}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.fasterxml.jackson.jaxrs</groupId>
-				<artifactId>jackson-jaxrs-json-provider</artifactId>
-				<version>${version.dep.jackson}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.apache.openejb</groupId>
 				<artifactId>javaee-api</artifactId>
 				<version>${version.dep.apache.openejb.javaee-api}</version>
@@ -157,12 +125,6 @@
 				<groupId>org.apache.openejb</groupId>
 				<artifactId>openejb-core</artifactId>
 				<version>${version.dep.apache.openejb}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.sun.jersey</groupId>
-				<artifactId>jersey-client</artifactId>
-				<version>${version.dep.sun.jersey}</version>
 			</dependency>
 
 			<dependency>
