@@ -47,8 +47,8 @@
 	</modules>
 
 	<properties>
-		<version.java>1.7</version.java>
-		<version.maven>3.0.5</version.maven>
+		<version.java>1.8</version.java>
+		<version.maven>3.2.2</version.maven>
 
 		<version.dep.slf4j>1.7.5</version.dep.slf4j>
 		<version.dep.logback>1.0.13</version.dep.logback>
